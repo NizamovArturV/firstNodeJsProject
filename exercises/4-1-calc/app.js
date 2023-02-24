@@ -1,5 +1,5 @@
-import Calculator from "./calculator.mjs";
-import CalculatorError from "./calculatorError.mjs";
+import Calculator from './calculator.js';
+import CalculatorError from './calculatorError.js';
 
 
 const calculator = new Calculator();

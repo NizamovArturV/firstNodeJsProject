@@ -1,5 +1,5 @@
-import Calculator from "../4-1-calc/calculator.mjs";
-import CalculatorError from "../4-1-calc/calculatorError.mjs";
+import Calculator from "../4-1-calc/calculator.js";
+import CalculatorError from "../4-1-calc/calculatorError.js";
 import EventEmitter from 'events';
 
 const eventEmitter = new EventEmitter();

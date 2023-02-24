@@ -1,8 +1,8 @@
-import add from './calculationOperators/add.mjs';
-import subtract from './calculationOperators/subtract.mjs';
-import multiply from './calculationOperators/multiply.mjs';
-import divide from './calculationOperators/divide.mjs';
-import CalculatorError from './calculatorError.mjs';
+import add from './calculationOperators/add.js';
+import subtract from './calculationOperators/subtract.js';
+import multiply from './calculationOperators/multiply.js';
+import divide from './calculationOperators/divide.js';
+import CalculatorError from './calculatorError.js';
 
 
 export default class Calculator {
@@ -11,7 +11,7 @@ export default class Calculator {
 
         if (firstNumber === undefined || secondNumber === undefined || operation === undefined) {
             throw new CalculatorError('Не указаны обязательные аргументы! ' +
-                'Введите аргументы по шаблону - node index.mjs #Первое число# #Второе число# #Оператор#');
+                'Введите аргументы по шаблону - node app.js #Первое число# #Второе число# #Оператор#');
         }
 
         let result = 0;

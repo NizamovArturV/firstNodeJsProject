@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/NizamovArturV/firstNodeJsProject/issues"
   },
-  "homepage": "https://github.com/NizamovArturV/firstNodeJsProject#readme"
+  "homepage": "https://github.com/NizamovArturV/firstNodeJsProject#readme",
+  "type": "module"
 }
