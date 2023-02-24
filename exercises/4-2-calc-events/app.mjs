@@ -45,4 +45,3 @@ if (calculator.operationList.get(operationCommand) === undefined) {
 } else {
     eventEmitter.emit(operationCommand, firstNumber, secondNumber, operationCommand);
 }
-
