@@ -1,6 +1,23 @@
 import DateConverterError from "./dateConverterError.js";
 
 export default class DateConverter {
+    get allowParams() {
+        return new Map([
+            ['w', 'week'],
+            ['week', 'week'],
+            ['d', 'day'],
+            ['day', 'day'],
+            ['h', 'hour'],
+            ['hour', 'hour'],
+            ['m', 'minute'],
+            ['minute', 'minute'],
+            ['s', 'second'],
+            ['second', 'second'],
+            ['ms', 'millisecond'],
+            ['millisecond', 'millisecond'],
+        ])
+    }
+
     parseParams(arParams) {
         let parsedParams = new Map();
         let validParamRegex = '^[0-9]+[a-z0-9]*[a-z]$';
@@ -20,6 +37,7 @@ export default class DateConverter {
         }
         return parsedParams;
     }
+
     getTimeFromParams(arParams) {
         let params = this.parseParams(arParams);
         let milliseconds = 0;
@@ -54,35 +72,24 @@ export default class DateConverter {
 
         return milliseconds;
     }
+
     weeksToMilliseconds(weeks) {
         return weeks * 7 * 24 * 60 * 60 * 1000;
     }
+
     daysToMilliseconds(days) {
         return days * 24 * 60 * 60 * 1000;
     }
+
     hoursToMilliseconds(hours) {
         return hours * 60 * 60 * 1000;
     }
+
     minutesToMilliseconds(minutes) {
         return minutes * 60 * 1000;
     }
+
     secondsToMilliseconds(seconds) {
         return seconds * 1000;
-    }
-    get allowParams () {
-        return new Map([
-            ['w', 'week'],
-            ['week', 'week'],
-            ['d', 'day'],
-            ['day', 'day'],
-            ['h', 'hour'],
-            ['hour', 'hour'],
-            ['m', 'minute'],
-            ['minute', 'minute'],
-            ['s', 'second'],
-            ['second', 'second'],
-            ['ms', 'millisecond'],
-            ['millisecond', 'millisecond'],
-        ])
     }
 }

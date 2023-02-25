@@ -9,7 +9,7 @@ const calculationInEvent = (firstNumber, secondNumber, operationCommand) => {
     try {
         eventEmitter.emit('result', calculator.compute(firstNumber, secondNumber, operationCommand));
     } catch (e) {
-       eventEmitter.emit('error', e)
+        eventEmitter.emit('error', e)
     }
 }
 

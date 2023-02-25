@@ -7,6 +7,19 @@ import CalculatorError from './calculatorError.js';
 
 export default class Calculator {
 
+    get operationList() {
+        return new Map([
+            ['add', 'add'],
+            ['+', 'add'],
+            ['subtract', 'subtract'],
+            ['-', 'subtract'],
+            ['multiply', 'multiply'],
+            ['*', 'multiply'],
+            ['divide', 'divide'],
+            ['/', 'divide'],
+        ]);
+    }
+
     compute(firstNumber, secondNumber, operation) {
 
         if (firstNumber === undefined || secondNumber === undefined || operation === undefined) {
@@ -44,18 +57,5 @@ export default class Calculator {
         }
 
         return result;
-    }
-
-    get operationList() {
-        return new Map([
-            ['add', 'add'],
-            ['+', 'add'],
-            ['subtract', 'subtract'],
-            ['-', 'subtract'],
-            ['multiply', 'multiply'],
-            ['*', 'multiply'],
-            ['divide', 'divide'],
-            ['/', 'divide'],
-        ]);
     }
 }
