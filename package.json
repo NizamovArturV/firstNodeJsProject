@@ -16,5 +16,8 @@
     "url": "https://github.com/NizamovArturV/firstNodeJsProject/issues"
   },
   "homepage": "https://github.com/NizamovArturV/firstNodeJsProject#readme",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "node-notifier": "^10.0.1"
+  }
 }
