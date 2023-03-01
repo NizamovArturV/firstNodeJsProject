@@ -23,8 +23,7 @@ eventEmitter.on('result', (result) => {
 
 eventEmitter.on('error', (e) => {
     if (e instanceof CalculatorError) {
-        console.log('Ошибка вычислений:');
-        console.log(e.message);
+        console.log('Ошибка вычислений:\n', e.message);
     } else {
         throw e;
     }
