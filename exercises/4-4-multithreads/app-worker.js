@@ -51,12 +51,11 @@ const main = async () => {
 
     const result = await Promise.all(allWorkers);
 
+    performance.mark('finish')
+
     const sum = result.reduce((partialSum, a) => partialSum + a, 0)
 
     console.log(sum)
-
-    performance.mark('finish')
-
 
     performance.measure('duration', 'start', 'finish');
 }

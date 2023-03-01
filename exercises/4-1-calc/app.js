@@ -4,13 +4,14 @@ import CalculatorError from './calculatorError.js';
 
 const calculator = new Calculator();
 
-let firstNumber = process.argv[2];
-let secondNumber = process.argv[3];
-let operationCommand = process.argv[4];
+const [ , , firstNumber, secondNumber, operationCommand] = process.argv;
 
 try {
-    console.log('Результат вычислений:');
-    console.log(calculator.compute(firstNumber, secondNumber, operationCommand));
+    if (firstNumber === undefined || secondNumber === undefined || operationCommand === undefined) {
+        throw new CalculatorError('Не указаны обязательные аргументы! ' +
+            'Введите аргументы по шаблону - node app.js #Первое число# #Второе число# #Оператор#');
+    }
+    console.log('Результат вычислений:\n', calculator.compute(firstNumber, secondNumber, operationCommand));
 } catch (e) {
     if (e instanceof CalculatorError) {
         console.log(e.message);

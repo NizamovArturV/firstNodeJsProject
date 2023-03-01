@@ -13,22 +13,13 @@ const calculationInEvent = (firstNumber, secondNumber, operationCommand) => {
     }
 }
 
-let firstNumber = process.argv[2];
-let secondNumber = process.argv[3];
-let operationCommand = process.argv[4];
-let operationListView = '';
-
-
-for (let operationName of calculator.operationList.keys()) {
+for (const operationName of Object.keys(calculator.operationList)) {
     eventEmitter.on(operationName, calculationInEvent);
-    operationListView += operationName + '\n';
 }
 
 eventEmitter.on('result', (result) => {
-    console.log('Результат вычислений:');
-    console.log(result);
+    console.log('Результат вычислений:\n', result);
 })
-
 
 eventEmitter.on('error', (e) => {
     if (e instanceof CalculatorError) {
@@ -39,9 +30,19 @@ eventEmitter.on('error', (e) => {
     }
 })
 
-if (calculator.operationList.get(operationCommand) === undefined) {
-    console.log('Такой операции не существует! Укажите одну из команд:');
-    console.log(operationListView)
-} else {
+const [ , , firstNumber, secondNumber, operationCommand] = process.argv;
+
+try {
+    if (firstNumber === undefined || secondNumber === undefined || operationCommand === undefined) {
+        throw new CalculatorError('Не указаны обязательные аргументы! ' +
+            'Введите аргументы по шаблону - node app.js #Первое число# #Второе число# #Оператор#');
+    }
+    calculator.validateOperation(operationCommand);
     eventEmitter.emit(operationCommand, firstNumber, secondNumber, operationCommand);
+} catch (e) {
+    if (e instanceof CalculatorError) {
+        console.log('Ошибка вычислений:\n', e.message);
+    } else {
+        throw e;
+    }
 }
