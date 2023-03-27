@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "/exercises/8-1-weather-api/src/"
+  ],
+  "ext": "ts,json",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node --files ./exercises/8-1-weather-api/index.ts"
+}
