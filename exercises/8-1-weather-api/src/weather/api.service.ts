@@ -3,6 +3,11 @@ import WeatherDto from './dto/weather.dto';
 import OpenWeatherResponseCity from './open.weather.response.city';
 import { OpenWeatherResponseWeather } from './open.weather.response.weather';
 import IWeatherApiInterface from './weather.api.interface';
+import ConfigService from '../config/config.service';
+
+interface IconDictionary {
+	[key: string]: string;
+}
 
 export default class ApiService implements IWeatherApiInterface {
 	private _token: string;
@@ -16,8 +21,21 @@ export default class ApiService implements IWeatherApiInterface {
 	}
 
 	private get urlApi(): string {
-		//@TODO вынести в ENV по необходмости
-		return 'http://api.openweathermap.org';
+		return ConfigService.getInstance().get('API_WEATHER_URL');
+	}
+
+	private get iconDictionary(): IconDictionary {
+		return {
+			'01': '☀️',
+			'02': '🌤️',
+			'03': '☁️',
+			'04': '☁️',
+			'09': '🌧️',
+			'10': '🌦️',
+			'11': '🌩️',
+			'13': '❄️',
+			'50': '🌫️',
+		};
 	}
 
 	set token(value: string) {
@@ -40,7 +58,7 @@ export default class ApiService implements IWeatherApiInterface {
 		const cityInfo = data.pop();
 
 		if (!cityInfo) {
-			throw new Error('error');
+			throw new Error('Заданный город не найден');
 		}
 
 		return cityInfo;
@@ -62,7 +80,7 @@ export default class ApiService implements IWeatherApiInterface {
 		});
 
 		if (!data) {
-			throw new Error('error');
+			throw new Error('Не удалось получить погоду заднного города');
 		}
 
 		return data;
@@ -75,39 +93,18 @@ export default class ApiService implements IWeatherApiInterface {
 
 		const weather = await this.getWeatherByCoordinates(cityInfo.lat, cityInfo.lon, token);
 
-		return new WeatherDto(
-			weather.name,
-			this.getIcon(weather.weather[0].icon),
-			weather.weather[0].description,
-			weather.main.temp,
-			weather.main.feels_like,
-			weather.main.humidity,
-			weather.wind.speed,
-		);
+		return new WeatherDto({
+			cityName: weather.name,
+			icon: this.getIcon(weather.weather[0].icon),
+			description: weather.weather[0].description,
+			temperature: weather.main.temp,
+			temperatureFeels: weather.main.feels_like,
+			humidity: weather.main.humidity,
+			windSpeed: weather.wind.speed,
+		});
 	}
 
 	private getIcon(icon: string): string {
-		switch (icon.slice(0, -1)) {
-			case '01':
-				return '☀️';
-			case '02':
-				return '🌤️';
-			case '03':
-				return '☁️';
-			case '04':
-				return '☁️';
-			case '09':
-				return '🌧️';
-			case '10':
-				return '🌦️';
-			case '11':
-				return '🌩️';
-			case '13':
-				return '❄️';
-			case '50':
-				return '🌫️';
-			default:
-				return '';
-		}
+		return this.iconDictionary[icon.slice(0, -1)] ? this.iconDictionary[icon.slice(0, -1)] : '';
 	}
 }

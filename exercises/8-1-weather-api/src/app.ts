@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import { Server } from 'http';
 import WeatherController from './weather/weather.controller';
 import IExceptionFilter from './errors/exception.filter.interface';
+import ConfigService from './config/config.service';
 
 export default class App {
 	private app: Express;
@@ -13,7 +14,7 @@ export default class App {
 		private exceptionFilter: IExceptionFilter,
 	) {
 		this.app = express();
-		this.port = 5000;
+		this.port = Number(ConfigService.getInstance().get('PORT'));
 	}
 
 	public async init(): Promise<void> {

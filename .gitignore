@@ -1,3 +1,4 @@
 /base-module
 /node_modules
 /dist
+.env
